@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    
+    <string name="app_name">Hubble</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+        
+	<!-- Activities -->
+    <string name="title_activity_account_creation">AccountCreation</string>
+    
+    <!-- Account creation/Login -->
+    <string name="email_hint">email address</string>
+    <string name="username_hint">user name</string>
+    <string name="password_hint">password</string>
+    <string name="confirmpass_hint">confirm password</string>
+    <string name="login">Log in</string>
+    <string name="create_account">Create new account</string>
+    <string name="sign_up">Sign up</string>
+    <string name="mainlogo">Full Hubble Logo</string>
+
+</resources>
