@@ -13,19 +13,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="25dp"
         android:layout_gravity="center"
         android:contentDescription="@string/mainlogo"
         android:background="@drawable/mainlogo"/>
     
+    <TextView style="@style/FadedNotif"
+        android:id="@+id/login_fail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/login_fail"
+        android:visibility="gone" />
+
     <EditText style="@style/BlueRim"
         android:id="@+id/l_username"
-        android:hint="@string/username_hint"/>
+        android:hint="@string/username_hint"
+        android:inputType="text"/>
 
     <EditText style="@style/BlueRim"
         android:id="@+id/l_password"
         android:hint="@string/password_hint"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:fontFamily="sans-serif" />
 
     <Button style="@style/BlueRim"
         android:id="@+id/loginButton"
@@ -35,7 +45,8 @@
         android:layout_gravity="center"
         android:background="@drawable/bluefill"
         android:text="@string/login"
-        android:textColor="@color/darkblue" />
+        android:textColor="@color/darkblue"
+        android:onClick="login" />
 
     <Button
         android:id="@+id/createAccountButton"

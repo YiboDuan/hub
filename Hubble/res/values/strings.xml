@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    
     <string name="app_name">Hubble</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-        
-	<!-- Activities -->
+
+    <!-- Activities -->
     <string name="title_activity_account_creation">AccountCreation</string>
-    
+
     <!-- Account creation/Login -->
     <string name="email_hint">email address</string>
     <string name="username_hint">user name</string>
@@ -18,5 +17,9 @@
     <string name="create_account">Create new account</string>
     <string name="sign_up">Sign up</string>
     <string name="mainlogo">Full Hubble Logo</string>
+    <string name="login_fail">Incorrect login info. Try again.</string>
+    <string name="title_activity_hub_index">HubIndex</string>
+    <string name="success_login_dialog">You have succcessfully created an account.\nGo ahead and log in!</string>
+    <string name="ok">OK</string>
 
 </resources>

@@ -30,23 +30,25 @@
     <EditText style="@style/BlueRim"
         android:id="@+id/c_password"
         android:hint="@string/password_hint"
-        android:inputType="textPassword" 
-        android:textAppearance="@style/BoxText"/>
+        android:inputType="textPassword"
+        android:fontFamily="sans-serif" />
     
     <EditText style="@style/BlueRim"
-        android:id="@+id/l_password"
+        android:id="@+id/c_confirmpassword"
         android:hint="@string/confirmpass_hint"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:fontFamily="sans-serif" />
 
     <Button style="@style/BlueRim"
-        android:id="@+id/loginButton"
+        android:id="@+id/signupButton"
         android:layout_width="200dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:layout_gravity="center"
         android:background="@drawable/bluefill"
         android:text="@string/sign_up"
-        android:textColor="@color/darkblue" />
+        android:textColor="@color/darkblue"
+        android:onClick="createAccount" />
 
     
 </LinearLayout>
