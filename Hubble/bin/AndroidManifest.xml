@@ -9,15 +9,18 @@
         android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/hubble_logo"
         android:label="@string/app_name"
         android:theme="@style/LightTheme" >
+        <meta-data 
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version" />
         <activity
-            android:name="com.tiriam.hubble.Title"
+            android:name="com.tiriam.hubble.activities.Title"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,15 +29,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.tiriam.hubble.AccountCreation"
+            android:name="com.tiriam.hubble.activities.AccountCreation"
             android:label="@string/title_activity_account_creation" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.tiriam.hubble.Title" />
         </activity>
         <activity
-            android:name="com.tiriam.hubble.HubIndex"
+            android:name="com.tiriam.hubble.activities.HubIndex"
             android:label="@string/title_activity_hub_index" >
+            
+        </activity>
+        <activity
+            android:name="com.tiriam.hubble.activities.CreateHub"
+            android:label="@string/title_activity_create_hub"
+            android:parentActivityName="com.tiriam.hubble.activities.HubIndex" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.tiriam.hubble.activities.HubIndex" />
         </activity>
     </application>
 

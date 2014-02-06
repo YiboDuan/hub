@@ -1,22 +1,26 @@
-package com.tiriam.hubble;
+package com.tiriam.hubble.activities;
+
+import com.tiriam.hubble.R;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
-public class HubIndex extends Activity {
+public class CreateHub extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(R.style.LightTheme);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_hub_index);
+		setContentView(R.layout.fragment_create_hub);
+		// Show the Up button in the action bar.
 	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.hub_index, menu);
+		getMenuInflater().inflate(R.menu.create_hub, menu);
 		return true;
 	}
-
 }

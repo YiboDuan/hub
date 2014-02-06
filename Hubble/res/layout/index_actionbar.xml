@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:layout_weight=".6"
+    android:background="@color/white_overlay"
+    android:gravity="right"
+    android:orientation="horizontal"
+    android:weightSum="1" >
+
+    <Button
+        android:id="@+id/menu"
+        style="@style/ButtonBarButton1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.25"
+        android:layout_gravity="center_vertical|right"
+        android:singleLine="true"
+        android:onClick="toggleMenu"
+        android:text="@string/menu" />
+    
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:src="@drawable/hubble_logo"
+        android:contentDescription="@string/hubble_icon" />
+    
+    <Button
+        android:id="@+id/hub_create"
+        style="@style/ButtonBarButton1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.25"
+        android:layout_gravity="center_vertical|left"
+        android:onClick="createAccount"
+        android:text="@string/create" />
+
+</LinearLayout>

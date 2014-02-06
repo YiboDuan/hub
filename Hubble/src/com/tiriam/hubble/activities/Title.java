@@ -1,9 +1,8 @@
-package com.tiriam.hubble;
+package com.tiriam.hubble.activities;
 
 import org.json.JSONException;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -11,6 +10,9 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.tiriam.hubble.R;
+import com.tiriam.hubble.persist.UserAccountManager;
 
 public class Title extends Activity {
 
@@ -32,13 +34,14 @@ public class Title extends Activity {
 	/** Sends to login view 
 	 * @throws JSONException **/
 	public void login(View view) throws JSONException {
-		CredentialVerifier ver = new CredentialVerifier();
+		UserAccountManager m = new UserAccountManager();
 		EditText v = (EditText) findViewById(R.id.l_username);
 		String username = v.getText().toString();
 		v = (EditText) findViewById(R.id.l_password);
 		String password = v.getText().toString();
-		if(ver.checkLogin(username, password)) {
+		if(m.checkLogin(username, password)) {
 			Intent intent = new Intent(this, HubIndex.class);
+			intent.putExtra("username", username);
 			startActivity(intent);
 		} else {
 			TextView t = (TextView) findViewById(R.id.login_fail);
