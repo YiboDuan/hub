@@ -22,12 +22,14 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
 import com.tiriam.hubble.R;
 import com.tiriam.hubble.fragments.CreateHubFragment;
+import com.tiriam.hubble.fragments.FeedFragment;
 import com.tiriam.hubble.fragments.IndexFragmentPagerAdapter;
 
 public class HubIndex extends ActionBarActivity implements
 		GooglePlayServicesClient.ConnectionCallbacks,
 		GooglePlayServicesClient.OnConnectionFailedListener,
-		CreateHubFragment.OnCreateHubListener {
+		CreateHubFragment.OnCreateHubListener,
+		FeedFragment.LocationUpdater {
 	
 	private static final int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 	
@@ -63,20 +65,20 @@ public class HubIndex extends ActionBarActivity implements
      */
     @Override
     protected void onStart() {
-        super.onStart();
-        // Connect the client.
+      // Connect the client.
         mLocationClient.connect();
+        super.onStart();
     }
     
     /*
      * Called when the Activity is no longer visible.
      */
-    @Override
-    protected void onStop() {
-        // Disconnecting the client invalidates it.
-        mLocationClient.disconnect();
-        super.onStop();
-    }
+//    @Override
+//    protected void onStop() {
+//        // Disconnecting the client invalidates it.
+//        mLocationClient.disconnect();
+//        super.onStop();
+//    }
 
     private void setupActionBar() {
         ActionBar ab = getSupportActionBar();
@@ -188,8 +190,8 @@ public class HubIndex extends ActionBarActivity implements
 
 	@Override
 	public void onConnected(Bundle connectionHint) {
-		Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
-		
+		FeedFragment feed = (FeedFragment)mAdapter.getRegisteredFragment(HUB_INDEX);
+		feed.populateFeed();
 	}
 
 	@Override
@@ -209,4 +211,16 @@ public class HubIndex extends ActionBarActivity implements
 		args.putDouble("longitude", longitude);
 		return args;
 	}
+
+	@Override
+	public Bundle onLocationRefresh() {
+		mLocation = mLocationClient.getLastLocation();
+		double latitude = mLocation.getLatitude();
+		double longitude = mLocation.getLongitude();
+		Bundle args = new Bundle();
+		args.putDouble("latitude", latitude);
+		args.putDouble("longitude", longitude);
+		return args;
+	}
+	
 }

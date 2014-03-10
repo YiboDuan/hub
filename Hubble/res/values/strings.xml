@@ -8,6 +8,7 @@
     <string name="drawer_image">drawer_image</string>
     <string name="temp">temporary placement</string>
     <string name="app_not_available">App Unavailable</string>
+    <string name="unloaded_text">unable to load text</string>
 
     <!-- Activities -->
     <string name="title_activity_account_creation">AccountCreation</string>
@@ -27,7 +28,7 @@
     <string name="ok">OK</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    
+
     <!-- Hub Index -->
     <string-array name="menu_items">
         <item>Joined Hubs</item>
@@ -37,10 +38,13 @@
         <item>Saved Hub Logs</item>
         <item>Exit Hubble</item>
     </string-array>
+
     <string name="menu">Menu</string>
-	<string name="create">Create</string>
-	
-	<!-- Create Hub -->
+    <string name="create">Create</string>
+    <string name="row_image_desc">row image</string>
+    <string name="no_results">No hubs found</string>
+
+    <!-- Create Hub -->
     <string name="hubname">hub name</string>
     <string name="hubpassword">hub password</string>
     <string name="max_users">max users</string>
@@ -49,12 +53,17 @@
     <string name="create_hub">Create Hub</string>
     <string name="s_public">Public</string>
     <string name="s_private">Private</string>
-    
+
     <string-array name="radius">
         <item>Small (theatre), 100m radius</item>
         <item>Medium (mall), 500m radius</item>
         <item>Large (campus/district), 1km radius</item>
         <item>XLarge (city), 5km radius</item>
     </string-array>
+	
+    <!-- Chat -->
+    <string name="title_activity_chat">Chat</string>
+    <string name="write_message">write a message&#8230;</string>
+    <string name="chat_send">send</string>
 
 </resources>

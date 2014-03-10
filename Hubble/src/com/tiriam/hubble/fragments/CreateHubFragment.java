@@ -61,7 +61,7 @@ public class CreateHubFragment extends Fragment implements
             mCallback = (OnCreateHubListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
+                    + " must implement OnCreateHubListener");
         }
     }
     

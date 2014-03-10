@@ -1,85 +1,43 @@
 package com.tiriam.hubble.fragments;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
-import android.database.DataSetObserver;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
-public class FeedItemAdapter implements ListAdapter {
-	Context context;
-	int NUM_ITEMS = 10;
-	
-	@Override
-	public int getCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+import com.tiriam.hubble.R;
 
-	@Override
-	public Object getItem(int position) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+public class FeedItemAdapter extends ArrayAdapter<JSONObject> {
+	private final Context context;
+	private final JSONObject[] fences;
 
-	@Override
-	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getItemViewType(int position) {
-		// TODO Auto-generated method stub
-		return 0;
+	public FeedItemAdapter (Context context, JSONObject[] fences) {
+		super(context, R.layout.feedrow_layout, fences);
+		this.context = context;
+		this.fences = fences;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getViewTypeCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public boolean hasStableIds() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void registerDataSetObserver(DataSetObserver observer) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void unregisterDataSetObserver(DataSetObserver observer) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean areAllItemsEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isEnabled(int position) {
-		// TODO Auto-generated method stub
-		return false;
+		LayoutInflater inflater = (LayoutInflater) context
+			        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View rowView = inflater.inflate(R.layout.feedrow_layout, parent, false);
+		TextView rowTitle = (TextView) rowView.findViewById(R.id.fence_title);
+		TextView rowDesc = (TextView) rowView.findViewById(R.id.fence_desc);
+		try {
+			if(fences != null) {
+				rowTitle.setText(fences[position].getString("name"));
+				rowDesc.setText(fences[position].getString("name"));
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return rowView;
 	}
 
 }

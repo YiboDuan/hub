@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="80dp"
+    android:layout_weight=".6"
+    android:background="@color/white_overlay"
+    android:gravity="right"
+    android:orientation="horizontal"
+    android:weightSum="1" >
+    
+	<ImageView
+        android:id="@+id/list_image"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="0.25"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_launcher"
+        android:contentDescription="@string/row_image_desc"/>
+	<LinearLayout
+	    android:layout_width="0dp"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="0.6"
+	    android:layout_gravity="center_vertical"
+	    android:orientation="vertical">
+		<TextView style="@style/FeedItemTitle"
+	        android:id="@+id/fence_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/unloaded_text"/>
+		<TextView style="@style/FadedNotif" 
+		    android:id="@+id/fence_desc"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/unloaded_text"/>
+	</LinearLayout>
+	
+	<ImageView 
+	    android:layout_width="0dp"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="0.15"
+	    android:contentDescription="@string/row_image_desc"/>
+</LinearLayout>

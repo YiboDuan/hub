@@ -57,6 +57,11 @@
         <item name="android:textColor">@color/faded</item> 
     </style>
     
+    <style name="FeedItemTitle">
+        <item name="android:textColor">@color/darkblue</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
     <style name="FadedNotif">
         <item name="android:textColor">@color/faded</item>
         <item name="android:textSize">14sp</item>
