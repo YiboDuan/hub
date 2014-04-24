@@ -48,14 +48,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.tiriam.hubble.activities.HubIndex" />
         </activity>
-        <activity
-            android:name="com.tiriam.hubble.Chat"
-            android:label="@string/title_activity_chat"
-            android:parentActivityName="com.tiriam.hubble.activities.HubIndex" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.tiriam.hubble.activities.HubIndex" />
-        </activity>
     </application>
 
 </manifest>

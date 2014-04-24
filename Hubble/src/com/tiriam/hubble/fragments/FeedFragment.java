@@ -5,7 +5,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -13,19 +12,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.tiriam.hubble.Chat;
 import com.tiriam.hubble.R;
+import com.tiriam.hubble.activities.HubIndex;
+import com.tiriam.hubble.fragments.CreateHubFragment.OnCreateHubListener;
 import com.tiriam.hubble.persist.HubManager;
 
 public class FeedFragment extends ListFragment {
 	LocationUpdater mCallback;
+	OpenChat cCallback;
 	FeedItemAdapter adapter;
 	HubManager hm;
 	
 	private double latitude;
 	private double longitude;
 	
-	static FeedFragment newInstance(double latitude, double longitude) {
+	static FeedFragment newInstance() {
 		FeedFragment f = new FeedFragment();
 		return f;
 	}
@@ -40,8 +41,17 @@ public class FeedFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Intent intent = new Intent(getActivity(), Chat.class);
-        startActivity(intent);
+        Bundle args = new Bundle();
+        int hub = -1;
+		try {
+			hub = adapter.getItem(position).getInt("id");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		args.putInt("hubID", hub);
+        args.putString("username", ((HubIndex)getActivity()).getUsername());
+        cCallback.onFeedItemClick(args);
     }
     
     public void populateFeed() {
@@ -69,6 +79,10 @@ public class FeedFragment extends ListFragment {
     	public Bundle onLocationRefresh();
     }
     
+    public interface OpenChat {
+    	public void onFeedItemClick(Bundle args);
+    }
+    
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -77,9 +91,10 @@ public class FeedFragment extends ListFragment {
         // the callback interface. If not, it throws an exception
         try {
             mCallback = (LocationUpdater) activity;
+            cCallback = (OpenChat) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement LocationUpdater");
+                    + " must implement interfaces for callback");
         }
     }
 }

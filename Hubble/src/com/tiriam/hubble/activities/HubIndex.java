@@ -6,6 +6,7 @@ import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.LayoutParams;
@@ -21,15 +22,18 @@ import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
 import com.tiriam.hubble.R;
+import com.tiriam.hubble.fragments.ChatFragment;
 import com.tiriam.hubble.fragments.CreateHubFragment;
 import com.tiriam.hubble.fragments.FeedFragment;
+import com.tiriam.hubble.fragments.MenuFragment;
 import com.tiriam.hubble.fragments.IndexFragmentPagerAdapter;
 
 public class HubIndex extends ActionBarActivity implements
 		GooglePlayServicesClient.ConnectionCallbacks,
 		GooglePlayServicesClient.OnConnectionFailedListener,
 		CreateHubFragment.OnCreateHubListener,
-		FeedFragment.LocationUpdater {
+		FeedFragment.LocationUpdater,
+		FeedFragment.OpenChat {
 	
 	private static final int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 	
@@ -37,6 +41,7 @@ public class HubIndex extends ActionBarActivity implements
     ViewPager mPager;
     LocationClient mLocationClient;
     Location mLocation;
+    String username;
     
     final int MENU_INDEX = 0;
     final int HUB_INDEX = 1;
@@ -48,15 +53,20 @@ public class HubIndex extends ActionBarActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hub_index);
         setupActionBar();
-        
+        username = getIntent().getExtras().getString("username");
         if(servicesConnected()) {
         	mLocationClient = new LocationClient(this, this, this);
         }
         
-        mAdapter = new IndexFragmentPagerAdapter(getSupportFragmentManager());
+        mAdapter = new IndexFragmentPagerAdapter(getSupportFragmentManager(), this);
         
         mPager = (ViewPager)findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
+        Bundle args = new Bundle();
+        mAdapter.addFragment(new MenuFragment(), 0, args);
+        mAdapter.addFragment(new FeedFragment(), 1, args);
+        mAdapter.addFragment(new CreateHubFragment(), 2, args);
+        mAdapter.notifyDataSetChanged();
         mPager.setCurrentItem(1);
     }
     
@@ -73,12 +83,12 @@ public class HubIndex extends ActionBarActivity implements
     /*
      * Called when the Activity is no longer visible.
      */
-//    @Override
-//    protected void onStop() {
-//        // Disconnecting the client invalidates it.
-//        mLocationClient.disconnect();
-//        super.onStop();
-//    }
+    @Override
+    protected void onStop() {
+        // Disconnecting the client invalidates it.
+        mLocationClient.disconnect();
+        super.onStop();
+    }
 
     private void setupActionBar() {
         ActionBar ab = getSupportActionBar();
@@ -206,10 +216,14 @@ public class HubIndex extends ActionBarActivity implements
 		double latitude = mLocation.getLatitude();
 		double longitude = mLocation.getLongitude();
 		Bundle args = new Bundle();
-		args.putString("username", getIntent().getExtras().getString("username"));
+		args.putString("username", username);
 		args.putDouble("latitude", latitude);
 		args.putDouble("longitude", longitude);
 		return args;
+	}
+	
+	public String getUsername() {
+		return username;
 	}
 
 	@Override
@@ -221,6 +235,15 @@ public class HubIndex extends ActionBarActivity implements
 		args.putDouble("latitude", latitude);
 		args.putDouble("longitude", longitude);
 		return args;
+	}
+
+	@Override
+	public void onFeedItemClick(Bundle args) {
+		if(!mAdapter.isChatVisible()) {
+			mAdapter.addFragment(new CreateHubFragment(), 3, null);
+			mAdapter.removeFragment(mPager, 2);
+			mAdapter.addFragment(ChatFragment.newInstance(args), 2, args);
+		}
 	}
 	
 }

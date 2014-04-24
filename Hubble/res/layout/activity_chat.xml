@@ -26,7 +26,7 @@
         android:visibility="visible"
         android:background="@color/darkblue"/>
     
-    <TextView
+    <ListView
         android:id="@+id/chat_display"
         android:layout_width="match_parent"
         android:layout_height="350dp" />
