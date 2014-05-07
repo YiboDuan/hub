@@ -23,7 +23,7 @@ public class CreateHubFragment extends Fragment implements
 	View v;
 	OnCreateHubListener mCallback;
 	
-	static CreateHubFragment newInstance() {
+	public static CreateHubFragment newInstance() {
 		CreateHubFragment f = new CreateHubFragment();
 		return f;
 	}

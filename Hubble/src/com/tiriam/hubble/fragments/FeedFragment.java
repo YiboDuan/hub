@@ -11,10 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.tiriam.hubble.R;
 import com.tiriam.hubble.activities.HubIndex;
-import com.tiriam.hubble.fragments.CreateHubFragment.OnCreateHubListener;
 import com.tiriam.hubble.persist.HubManager;
 
 public class FeedFragment extends ListFragment {
@@ -26,7 +26,7 @@ public class FeedFragment extends ListFragment {
 	private double latitude;
 	private double longitude;
 	
-	static FeedFragment newInstance() {
+	public static FeedFragment newInstance() {
 		FeedFragment f = new FeedFragment();
 		return f;
 	}
@@ -35,6 +35,8 @@ public class FeedFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
     	View v = inflater.inflate(R.layout.fragment_feed, container, false);
+    	View e = inflater.inflate(R.layout.loadspin, container, false);
+    	getListView().setEmptyView(e);
     	return v;
     }
     
@@ -54,26 +56,26 @@ public class FeedFragment extends ListFragment {
         cCallback.onFeedItemClick(args);
     }
     
-    public void populateFeed() {
-    	Bundle args = mCallback.onLocationRefresh();
-    	latitude = args.getDouble("latitude");
-    	longitude = args.getDouble("longitude");
-    	hm = new HubManager();
-    	JSONObject[] fenceList = null;
-		try {
-			//JSONArray arr = hm.getHubs(43.4721914, -80.5384629);
-			JSONArray arr = hm.getHubs(latitude, longitude);
-			fenceList = new JSONObject[arr.length()];
-			for(int i = 0; i < arr.length(); i++) {
-				fenceList[i] = arr.getJSONObject(i);
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-    	adapter = new FeedItemAdapter(getActivity(), fenceList);
-    	setListAdapter(adapter);
-    	adapter.notifyDataSetChanged();
-    }
+//    public void populateFeed() {
+//    	Bundle args = mCallback.onLocationRefresh();
+//    	latitude = args.getDouble("latitude");
+//    	longitude = args.getDouble("longitude");
+//    	hm = new HubManager();
+//    	JSONObject[] fenceList = null;
+//		try {
+//			//JSONArray arr = hm.getHubs(43.4721914, -80.5384629);
+//			JSONArray arr = hm.getHubs(latitude, longitude);
+//			fenceList = new JSONObject[arr.length()];
+//			for(int i = 0; i < arr.length(); i++) {
+//				fenceList[i] = arr.getJSONObject(i);
+//			}
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+//    	adapter = new FeedItemAdapter(getActivity(), fenceList);
+//    	setListAdapter(adapter);
+//    	adapter.notifyDataSetChanged();
+//    }
 
     public interface LocationUpdater {
     	public Bundle onLocationRefresh();
@@ -96,5 +98,35 @@ public class FeedFragment extends ListFragment {
             throw new ClassCastException(activity.toString()
                     + " must implement interfaces for callback");
         }
+        FeedFiller ff = new FeedFiller();
+        new Thread(ff).start();
     }
+	class FeedFiller implements Runnable {
+		@Override
+		public void run() {
+	    	Bundle args = mCallback.onLocationRefresh();
+	    	latitude = args.getDouble("latitude");
+	    	longitude = args.getDouble("longitude");
+	    	hm = new HubManager();
+	    	JSONObject[] fenceList = null;
+			try {
+				//JSONArray arr = hm.getHubs(43.4721914, -80.5384629);
+				JSONArray arr = hm.getHubs(latitude, longitude);
+				fenceList = new JSONObject[arr.length()];
+				for(int i = 0; i < arr.length(); i++) {
+					fenceList[i] = arr.getJSONObject(i);
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+	    	adapter = new FeedItemAdapter(getActivity(), fenceList);
+	    	setListAdapter(adapter);
+	    	adapter.notifyDataSetChanged();
+	    	if(adapter.getCount() == 0) {
+	    		TextView t = new TextView(getActivity());
+	    		t.setText("No hubs found.");
+	    		getListView().setEmptyView(t);
+	    	}
+		}
+	}
 }

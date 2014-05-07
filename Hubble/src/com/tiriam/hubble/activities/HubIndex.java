@@ -6,7 +6,6 @@ import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.LayoutParams;
@@ -25,8 +24,8 @@ import com.tiriam.hubble.R;
 import com.tiriam.hubble.fragments.ChatFragment;
 import com.tiriam.hubble.fragments.CreateHubFragment;
 import com.tiriam.hubble.fragments.FeedFragment;
-import com.tiriam.hubble.fragments.MenuFragment;
 import com.tiriam.hubble.fragments.IndexFragmentPagerAdapter;
+import com.tiriam.hubble.fragments.MenuFragment;
 
 public class HubIndex extends ActionBarActivity implements
 		GooglePlayServicesClient.ConnectionCallbacks,
@@ -62,10 +61,9 @@ public class HubIndex extends ActionBarActivity implements
         
         mPager = (ViewPager)findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
-        Bundle args = new Bundle();
-        mAdapter.addFragment(new MenuFragment(), 0, args);
-        mAdapter.addFragment(new FeedFragment(), 1, args);
-        mAdapter.addFragment(new CreateHubFragment(), 2, args);
+        mAdapter.addFragment(MenuFragment.newInstance(), MENU_INDEX);
+        mAdapter.addFragment(FeedFragment.newInstance(), HUB_INDEX);
+        mAdapter.addFragment(CreateHubFragment.newInstance(), CREATEHUB_INDEX);
         mAdapter.notifyDataSetChanged();
         mPager.setCurrentItem(1);
     }
@@ -200,8 +198,8 @@ public class HubIndex extends ActionBarActivity implements
 
 	@Override
 	public void onConnected(Bundle connectionHint) {
-		FeedFragment feed = (FeedFragment)mAdapter.getRegisteredFragment(HUB_INDEX);
-		feed.populateFeed();
+//		FeedFragment feed = (FeedFragment)mAdapter.getFragment(HUB_INDEX);
+//		feed.populateFeed();
 	}
 
 	@Override
@@ -240,9 +238,10 @@ public class HubIndex extends ActionBarActivity implements
 	@Override
 	public void onFeedItemClick(Bundle args) {
 		if(!mAdapter.isChatVisible()) {
-			mAdapter.addFragment(new CreateHubFragment(), 3, null);
+			mAdapter.addFragment(new CreateHubFragment(), 3);
 			mAdapter.removeFragment(mPager, 2);
-			mAdapter.addFragment(ChatFragment.newInstance(args), 2, args);
+			mAdapter.addFragment(ChatFragment.newInstance(args), 4);
+			mAdapter.notifyDataSetChanged();
 		}
 	}
 	

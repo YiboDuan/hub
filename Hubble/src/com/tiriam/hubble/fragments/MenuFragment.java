@@ -11,7 +11,7 @@ import android.widget.ListView;
 import com.tiriam.hubble.R;
 
 public class MenuFragment extends ListFragment {
-	static MenuFragment newInstance() {
+	public static MenuFragment newInstance() {
 		MenuFragment f = new MenuFragment();
 		return f;
 	}
