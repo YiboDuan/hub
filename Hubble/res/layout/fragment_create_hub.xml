@@ -8,34 +8,187 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context=".CreateHub" >
-
-    <EditText style="@style/BlueRim"
-        android:id="@+id/hubname"
-        android:hint="@string/hubname"
-        android:inputType="text" />
-    
-    <Switch 
-        android:id="@+id/set_visibility"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textOn="@string/s_private"
-        android:textOff="@string/s_public" />
-    
-    <EditText style="@style/BlueRim"
-        android:id="@+id/hub_password"
-        android:inputType="textPassword"
-        android:hint="@string/hubpassword"
-        android:visibility="gone" />
-    
-	<Spinner
-        android:id="@+id/set_radius"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:orientation="horizontal">"
 
-    <EditText style="@style/BlueRim"
-        android:id="@+id/max_users"
-        android:hint="@string/max_users"
-        android:inputType="number"/>
+        <TextView
+            style="@style/StandardLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hubname" />
+
+        <TextView
+            style="@style/StandardSupportLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name_help" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/hubname"
+        style="@style/MessageEditText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:inputType="text" />
+
+	<LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/StandardLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/privacy" />
+
+        <TextView
+            style="@style/StandardSupportLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/privacy_help" />
+
+    </LinearLayout>
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+	<LinearLayout
+	    android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+	    <ImageView
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:src="@drawable/unlock_image"
+	        android:contentDescription="@string/lock_image"/>
+	    <RadioButton android:id="@+id/radio_public"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/s_public"/>
+	</LinearLayout>
+	
+	<LinearLayout
+	    android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+	    <ImageView
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:src="@drawable/lock_image"
+	        android:contentDescription="@string/lock_image"/>
+	    <RadioButton android:id="@+id/radio_private"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/s_private"/>
+	</LinearLayout>
+	</RadioGroup>
+
+	<EditText style="@style/MessageEditText"
+        android:id="@+id/hub_password"
+        android:layout_width="220dp"
+        android:layout_height="30dp"
+        android:inputType="textPassword"
+        android:includeFontPadding="false"
+        android:textSize="12sp"
+        android:hint="@string/hubpassword"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/StandardLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/max_users" />
+
+        <TextView
+            style="@style/StandardSupportLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/privacy_help" />
+
+    </LinearLayout>
+    <RadioGroup
+        android:id="@+id/max_user_radio"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal">
+	    <RadioButton android:id="@+id/radio_five"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:paddingRight="20dp"
+	        android:text="@string/five"/>
+	    <RadioButton android:id="@+id/radio_ten"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:paddingRight="20dp"
+	        android:text="@string/ten"/>
+	    <RadioButton android:id="@+id/radio_fifteen"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:paddingRight="20dp"
+	        android:text="@string/fifteen"/>
+	</RadioGroup>
+	
+    <TextView
+        style="@style/StandardLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hub_size" />
+    
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal">
+	    <RadioButton android:id="@+id/small_size"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/small"/>
+	    <TextView
+            style="@style/StandardSupportLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/small_help" />
+	    <RadioButton android:id="@+id/medium_size"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/medium"/>
+	    <TextView
+            style="@style/StandardSupportLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/medium_help" />
+	</LinearLayout>
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal">
+	    <RadioButton android:id="@+id/large_size"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/large"/>
+	    <TextView
+            style="@style/StandardSupportLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/large_help" />
+	    <RadioButton android:id="@+id/xlarge_size"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/xlarge"/>
+	    <TextView
+            style="@style/StandardSupportLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/xlarge_help" />
+	</LinearLayout>
     
     <Button style="@style/BlueRim"
         android:id="@+id/create_hub_button"
@@ -46,6 +199,6 @@
         android:background="@drawable/bluefill"
         android:text="@string/create_hub"
         android:textColor="@color/darkblue"
-        android:onClick="createAccount" />
+        android:onClick="submitHub" />
 
 </LinearLayout>

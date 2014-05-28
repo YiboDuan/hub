@@ -21,9 +21,7 @@ public class MenuFragment extends ListFragment {
             Bundle savedInstanceState) {
     	View v = inflater.inflate(R.layout.fragment_menu, container, false);
     	String[] mOptions = getResources().getStringArray(R.array.menu_items);
-    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(  
-    		     inflater.getContext(), android.R.layout.simple_list_item_1,  
-    		     mOptions);
+    	MenuItemAdapter adapter = new MenuItemAdapter(getActivity(), mOptions);
     	setListAdapter(adapter);
     	return v;
 	}

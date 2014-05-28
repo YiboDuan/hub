@@ -43,10 +43,19 @@ public class ChatFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		if(getArguments() != null) {
+			connect();
+		}
+
+	}
+	
+	private void connect() {
 		hubID = getArguments().getInt("id");
 		listenSocket();
 		receiveMessage();
+		// send the server the username and hub name to be stored
+	    this.out.println(getArguments().getString("username")
+	    		+ "," + hubID);
 	}
 	
     @Override
@@ -76,9 +85,6 @@ public class ChatFragment extends Fragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		// send the server the username and hub name to be stored
-	    this.out.println(getArguments().getString("username")
-	    		+ "," + hubID);
 	}
 	
 	public void onClick(View view) {
@@ -105,6 +111,13 @@ public class ChatFragment extends Fragment {
 				msgView.smoothScrollToPosition(msgList.getCount() - 1);
 			}
 		});
+	}
+	
+	public String getPageTitle() {
+		if(getArguments() != null) {
+			return getArguments().getString("hubName");
+		}
+		return "";
 	}
 	
 	class MessageReceiver implements Runnable {

@@ -31,29 +31,42 @@
 
     <!-- Hub Index -->
     <string-array name="menu_items">
-        <item>Joined Hubs</item>
-        <item>Hub Index</item>
         <item>Help</item>
         <item>Settings</item>
-        <item>Saved Hub Logs</item>
-        <item>Exit Hubble</item>
+        <item>Saved</item>
+        <item>Exit</item>	
     </string-array>
-
+	
+    <string name="menu_row_icon_desc">Menu row icon</string>
     <string name="menu">Menu</string>
     <string name="create">Create</string>
     <string name="row_image_desc">row image</string>
     <string name="no_results">No hubs found</string>
 
     <!-- Create Hub -->
-    <string name="hubname">hub name</string>
-    <string name="hubpassword">hub password</string>
-    <string name="max_users">max users</string>
-    <string name="hubrad">set hub radius</string>
+    <string name="hubname">Hub Name</string>
+    <string name="name_help">(100 characters max.)</string>
+    <string name="privacy">Privacy</string>
+    <string name="privacy_help">(Select one)</string>
+    <string name="hubpassword">Password</string>
+    <string name="max_users">Max Users</string>
+    <string name="five">5</string>
+    <string name="ten">10</string>
+    <string name="fifteen">15</string>
+    <string name="hub_size">Hub Size</string>
+    <string name="small">Small</string>
+    <string name="small_help">(100m radius)</string>
+    <string name="medium">Medium</string>
+    <string name="medium_help">(500m radius)</string>
+    <string name="large">Large</string>
+    <string name="large_help">(1km radius)</string>
+    <string name="xlarge">X-Large</string>
+    <string name="xlarge_help">(5km radius)</string>
     <string name="title_activity_create_hub">Create Hub</string>
     <string name="create_hub">Create Hub</string>
     <string name="s_public">Public</string>
     <string name="s_private">Private</string>
-
+	<string name="lock_image">lock image</string>
     <string-array name="radius">
         <item>Small (theatre), 100m radius</item>
         <item>Medium (mall), 500m radius</item>
@@ -63,7 +76,7 @@
 	
     <!-- Chat -->
     <string name="title_activity_chat">Chat</string>
-    <string name="write_message">write a message&#8230;</string>
+    <string name="write_message">Send Message</string>
     <string name="chat_send">send</string>
 
 </resources>

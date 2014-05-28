@@ -57,6 +57,28 @@
         <item name="android:textColor">@color/faded</item> 
     </style>
     
+    <style name="MessageEditText" parent="@android:style/Widget.EditText">
+    	<item name="android:textColor">@color/pure_black</item>
+    	<item name="android:background">@drawable/message_edit_text</item>
+    	<item name="android:paddingLeft">10dp</item>
+	</style>
+	
+    <style name="StandardLabel">
+        <item name="android:textColor">@color/pure_black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingBottom">7dp</item>
+    </style>
+    
+    <style name="StandardSupportLabel">
+        <item name="android:textColor">@color/pure_black</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:paddingLeft">5dp</item>
+    </style>
+    
     <style name="FeedItemTitle">
         <item name="android:textColor">@color/darkblue</item>
         <item name="android:textStyle">bold</item>

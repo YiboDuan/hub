@@ -3,17 +3,21 @@ package com.tiriam.hubble.activities;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.IntentSender;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.LayoutParams;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -21,11 +25,9 @@ import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
 import com.tiriam.hubble.R;
-import com.tiriam.hubble.fragments.ChatFragment;
 import com.tiriam.hubble.fragments.CreateHubFragment;
 import com.tiriam.hubble.fragments.FeedFragment;
 import com.tiriam.hubble.fragments.IndexFragmentPagerAdapter;
-import com.tiriam.hubble.fragments.MenuFragment;
 
 public class HubIndex extends ActionBarActivity implements
 		GooglePlayServicesClient.ConnectionCallbacks,
@@ -57,15 +59,30 @@ public class HubIndex extends ActionBarActivity implements
         	mLocationClient = new LocationClient(this, this, this);
         }
         
-        mAdapter = new IndexFragmentPagerAdapter(getSupportFragmentManager(), this);
+        mAdapter = new IndexFragmentPagerAdapter(getSupportFragmentManager());
         
         mPager = (ViewPager)findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
-        mAdapter.addFragment(MenuFragment.newInstance(), MENU_INDEX);
-        mAdapter.addFragment(FeedFragment.newInstance(), HUB_INDEX);
-        mAdapter.addFragment(CreateHubFragment.newInstance(), CREATEHUB_INDEX);
-        mAdapter.notifyDataSetChanged();
         mPager.setCurrentItem(1);
+        
+        final PagerTabStrip strip = PagerTabStrip.class.cast(findViewById(R.id.pts_main));
+        
+        //strip.setBackgroundColor(this.getResources().getColor(R.color.darkblue));
+        //strip.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
+        strip.setTabIndicatorColor(this.getResources().getColor(R.color.darkblue));
+        
+        for (int i = 0; i < strip.getChildCount(); i++) {
+        	   View nextChild = strip.getChildAt(i);
+        	    if (nextChild instanceof TextView) {
+        	       TextView tv = (TextView) nextChild;
+        	       tv.setBackgroundColor(this.getResources().getColor(R.color.darkblue));
+        	       tv.setTextColor(this.getResources().getColor(R.color.white_overlay));;
+        	       tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 24);
+        	       tv.setTypeface(null, Typeface.BOLD);
+        	       tv.setPadding(0, 8, 0, 8);
+        	    }
+        }
+        strip.setNonPrimaryAlpha(0.0f);
     }
     
     /*
@@ -78,6 +95,11 @@ public class HubIndex extends ActionBarActivity implements
         super.onStart();
     }
     
+    @Override
+    protected void onResume() {
+    	mLocationClient.connect();
+    	super.onResume();
+    }
     /*
      * Called when the Activity is no longer visible.
      */
@@ -112,6 +134,55 @@ public class HubIndex extends ActionBarActivity implements
     	mPager.setCurrentItem(CREATEHUB_INDEX, true);
     }
     
+	@Override
+	public void onConnected(Bundle connectionHint) {
+		FeedFragment feed = (FeedFragment)mAdapter.getRegisteredFragment(HUB_INDEX);
+		feed.populateFeed();
+	}
+
+	@Override
+	public void onDisconnected() {
+		 Toast.makeText(this, "Disconnected. Please re-connect.",
+	                Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public Bundle onHubSubmitted() {
+		mLocation = mLocationClient.getLastLocation();
+		double latitude = mLocation.getLatitude();
+		double longitude = mLocation.getLongitude();
+		Bundle args = new Bundle();
+		args.putString("username", username);
+		args.putDouble("latitude", latitude);
+		args.putDouble("longitude", longitude);
+		return args;
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+
+	@Override
+	public Bundle onLocationRefresh() {
+		if(mLocationClient.isConnected() == false) {
+			mLocationClient.connect();
+		}
+		mLocation = mLocationClient.getLastLocation();
+		double latitude = mLocation.getLatitude();
+		double longitude = mLocation.getLongitude();
+		Bundle args = new Bundle();
+		args.putDouble("latitude", latitude);
+		args.putDouble("longitude", longitude);
+		return args;
+	}
+
+	@Override
+	public void onFeedItemClick(Bundle args) {
+	}
+	
+	/*
+	 * All code below required for use of google play services
+	 */
     public static class ErrorDialogFragment extends DialogFragment {
         // Global field to contain the error dialog
         private Dialog mDialog;
@@ -196,53 +267,6 @@ public class HubIndex extends ActionBarActivity implements
 		
 	}
 
-	@Override
-	public void onConnected(Bundle connectionHint) {
-//		FeedFragment feed = (FeedFragment)mAdapter.getFragment(HUB_INDEX);
-//		feed.populateFeed();
-	}
 
-	@Override
-	public void onDisconnected() {
-		 Toast.makeText(this, "Disconnected. Please re-connect.",
-	                Toast.LENGTH_SHORT).show();
-	}
-
-	@Override
-	public Bundle onHubSubmitted() {
-		mLocation = mLocationClient.getLastLocation();
-		double latitude = mLocation.getLatitude();
-		double longitude = mLocation.getLongitude();
-		Bundle args = new Bundle();
-		args.putString("username", username);
-		args.putDouble("latitude", latitude);
-		args.putDouble("longitude", longitude);
-		return args;
-	}
-	
-	public String getUsername() {
-		return username;
-	}
-
-	@Override
-	public Bundle onLocationRefresh() {
-		mLocation = mLocationClient.getLastLocation();
-		double latitude = mLocation.getLatitude();
-		double longitude = mLocation.getLongitude();
-		Bundle args = new Bundle();
-		args.putDouble("latitude", latitude);
-		args.putDouble("longitude", longitude);
-		return args;
-	}
-
-	@Override
-	public void onFeedItemClick(Bundle args) {
-		if(!mAdapter.isChatVisible()) {
-			mAdapter.addFragment(new CreateHubFragment(), 3);
-			mAdapter.removeFragment(mPager, 2);
-			mAdapter.addFragment(ChatFragment.newInstance(args), 4);
-			mAdapter.notifyDataSetChanged();
-		}
-	}
 	
 }

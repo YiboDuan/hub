@@ -1,76 +1,78 @@
 package com.tiriam.hubble.fragments;
 
-import java.util.ArrayList;
-
-import android.R;
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.util.SparseArray;
 import android.view.ViewGroup;
 
 public class IndexFragmentPagerAdapter extends FragmentPagerAdapter {
-	private ArrayList<Fragment> frags = new ArrayList<Fragment>();
-	Context context;
-	
-    public IndexFragmentPagerAdapter(FragmentManager fm, Context context) {
+	SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
+	static final int NUM_ITEMS = 4;
+	boolean isChatActivated = false;
+    public IndexFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
     }
-
+    
     @Override
-    public int getItemPosition (Object object)
-    {
-        int index = frags.indexOf (object);
-        if (index == -1)
-          return POSITION_NONE;
-        else
-          return index;
-    }
-
-    @Override
-    public int getCount ()
-    {
-    	return frags.size();
-    }
-
-    @Override
-    public Object instantiateItem (ViewGroup container, int position)
-    {
-    	Fragment f = frags.get(position);
-    	//super.instantiateItem(container, position);
-		return f;
-    }
-
-    @Override
-    public void destroyItem (ViewGroup container, int position, Object object)
-    {
-        frags.remove(position);
+    public CharSequence getPageTitle(int position) {
+    	switch(position) {
+    	case 0:
+    		return "Menu";
+    	case 1:
+    		return "Active Hubs";
+    	case 2:
+    		//return ((ChatFragment)registeredFragments.get(2)).getPageTitle();
+    		return "";
+    	case 3:
+    		return "Create Hub";
+    	default:
+    		return "";
+    	}
     }
     
-    public void addFragment (Fragment f, int position)
-    {
-    	frags.add(position, f);
+    @Override
+    public Fragment getItem(int i) {
+    	switch(i) {
+    	case 0:
+    		return new MenuFragment();
+    	case 1:
+    		return new FeedFragment();
+    	case 2:
+    		return ChatFragment.newInstance(null);
+    	case 3:
+    		return new CreateHubFragment();
+    	}
+        return null;
     }
     
-    public Fragment getFragment(int position) {
-        return frags.get(position);
+    @Override
+    public float getPageWidth(int position) {
+	    if (position == 0) {
+	        return(0.8f);
+	    } else {
+	        return (1.0f);       
+	    }
     }
-    
-    public boolean isChatVisible() {
-    	return ((getCount() == 4)? true : false);
-    }
-    
-    public void removeFragment(ViewPager pager, int position) {
-    	pager.setAdapter(null);
-    	frags.remove(position);
-    	pager.setAdapter(this);
+    @Override
+    public int getCount() {
+        return NUM_ITEMS;
     }
 
-	@Override
-	public Fragment getItem(int position) {
-		return frags.get(position);
-	}
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        Fragment fragment = (Fragment) super.instantiateItem(container, position);
+        registeredFragments.put(position, fragment);
+        return fragment;
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        registeredFragments.remove(position);
+        super.destroyItem(container, position, object);
+    }
+
+    public Fragment getRegisteredFragment(int position) {
+        return registeredFragments.get(position);
+    }
 }

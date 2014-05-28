@@ -40,14 +40,6 @@
             android:name="com.tiriam.hubble.activities.HubIndex"
             android:label="@string/title_activity_hub_index" >
         </activity>
-        <activity
-            android:name="com.tiriam.hubble.activities.CreateHub"
-            android:label="@string/title_activity_create_hub"
-            android:parentActivityName="com.tiriam.hubble.activities.HubIndex" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.tiriam.hubble.activities.HubIndex" />
-        </activity>
     </application>
 
 </manifest>

@@ -8,46 +8,25 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context=".Chat" >
-
-    <TextView
-        android:id="@+id/chat_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:text="@string/title_activity_chat"
-        android:textColor="@color/darkblue"
-        android:paddingBottom="10dp" />
-    
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="0.5dp"
-        android:id="@+id/separator"
-        android:visibility="visible"
-        android:background="@color/darkblue"/>
     
     <ListView
         android:id="@+id/chat_display"
         android:layout_width="match_parent"
-        android:layout_height="350dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
     
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="0.5dp"
-        android:id="@+id/separator2"
-        android:visibility="visible"
-        android:background="@color/darkblue"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="bottom"
+        android:background="@color/lightgrey"
         android:weightSum="1">
-        <EditText 
+        <EditText style="@style/MessageEditText"
         android:id="@+id/chat_input"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.7"
-        android:paddingTop="10dp"
         android:hint="@string/write_message"
         android:inputType="textShortMessage" />
     	<Button 
